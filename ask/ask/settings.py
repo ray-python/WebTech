@@ -80,7 +80,31 @@ DATABASES = {
         'NAME': os.path.join(os.path.abspath(os.path.dirname(__file__)), 'qa.db'),
     }
 }
-
+LOGGING = {
+    'version' : 1,
+    'formatters': {
+        'simple': { 'format': '%(levelname)s %(message)s' },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers' : ['file'],
+            'propagate' : True,
+            'level': DEBUG,
+        },
+        'qa': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
