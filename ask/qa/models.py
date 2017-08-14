@@ -4,27 +4,22 @@ from django.contrib.auth.models import User
 
 
 class QuestionManager(models.Manager):
-    def resent_questions(self):
-        return self.order_by('-added_at')
+    def new(self):
+        pass
 
-    def popular_questions(self):
-        return self.order_by('-rating')
+    def popular(self):
+        pass
 
 
 class Question(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=1)
+    rating = models.IntegerField(default=0)
     author = models.ForeignKey(User, related_name='question_user', blank=True, null=True)
-    rating = models.BigIntegerField(default=1)
     likes = models.ManyToManyField(User, related_name='%(app_label)s_%(class)s_related', blank=True)
 
     objects = QuestionManager()
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ('qa.views.question_details', [str(self.id)])
 
 
 class Answer(models.Model):

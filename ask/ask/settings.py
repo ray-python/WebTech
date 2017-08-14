@@ -76,34 +76,11 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.abspath(os.path.dirname(__file__)), 'qa.db'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':   'qa',
+    'USER':   'admin',
+    'PASSWORD': 'admin',
     }
-}
-LOGGING = {
-    'version' : 1,
-    'formatters': {
-        'simple': { 'format': '%(levelname)s %(message)s' },
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'mysite.log',
-            'formatter': 'simple'
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers' : ['file'],
-            'propagate' : True,
-            'level': DEBUG,
-        },
-        'qa': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-        },
-    },
 }
 
 # Password validation
