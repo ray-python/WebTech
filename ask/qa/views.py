@@ -1,12 +1,27 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.core.paginator import Paginator, EmptyPage
+from django.shortcuts import render, get_object_or_404
+from .models import Question
 
 
 # Create your views here.
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
 
+
+def index(request, *args, **kwargs):
+    return render(request, 'question/index.html', {'questions': paginate(request, Question.objects.new()),})
+
+
+def popular(request, *args, **kwargs):
+    return render(request, 'question/index.html', {'questions': paginate(request, Question.objects.popular()),})
+
+
+def question_details(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    #form = AnswerForm(initial={'question': question_id})
+    return render(request, 'question/details.html', {'question': question}) #, 'form': form})
 
 def paginate(request, qs):
     try:
