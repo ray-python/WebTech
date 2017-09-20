@@ -37,7 +37,6 @@ class AnswerForm(ModelForm):
     def clean(self):
         return super(AnswerForm, self).clean()
 
-
     def save(self):
         answer = Answer(**self.cleaned_data)
         answer.author = self.instance.author

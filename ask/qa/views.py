@@ -21,8 +21,21 @@ def popular(request, *args, **kwargs):
 
 def question_details(request, question_id):
     question = get_object_or_404(Question, id=question_id)
-    #form = AnswerForm(initial={'question': question_id})
-    return render(request, 'question/details.html', {'question': question}) #, 'form': form})
+    form = AnswerForm(initial={'question': question_id})
+    return render(request, 'question/details.html', {'question': question, 'form': form})
+
+def question_add(request):
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        import pdb; pdb.set_trace()
+        form.instance.author = request.user
+        if form.is_valid():
+            question = form.save()
+            url = question.get_absolute_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'question/add.html', {'form' : form})
 
 def paginate(request, qs):
     try:
