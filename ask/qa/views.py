@@ -24,6 +24,7 @@ def question_details(request, question_id):
     form = AnswerForm(initial={'question': question_id})
     return render(request, 'question/details.html', {'question': question, 'form': form})
 
+
 def question_add(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
