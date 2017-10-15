@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator, EmptyPage
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_GET
 from .models import Question
 from .forms import AskForm, AnswerForm, NewUserForm, LoginForm
 
@@ -10,15 +11,15 @@ from .forms import AskForm, AnswerForm, NewUserForm, LoginForm
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
 
-
+@require_GET
 def index(request, *args, **kwargs):
     return render(request, 'question/index.html', {'questions': paginate(request, Question.objects.new()),})
 
-
+@require_GET
 def popular(request, *args, **kwargs):
     return render(request, 'question/index.html', {'questions': paginate(request, Question.objects.popular()),})
 
-
+@require_GET
 def question_details(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     form = AnswerForm(initial={'question': question_id})
