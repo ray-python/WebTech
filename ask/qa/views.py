@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator, EmptyPage
-from django.shortcuts import render, get_object_or_404
 from .models import Question
 from .forms import AskForm, AnswerForm, NewUserForm, LoginForm
 
